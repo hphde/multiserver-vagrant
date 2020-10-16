@@ -29,6 +29,11 @@ Vagrant.configure("2") do |config|
     # macos 100% CPU fix
     vb.customize ["modifyvm", :id, "--audio", "none"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    # required to fix a bug for booting Ubuntu
+    vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
+    vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
+    # Display the VirtualBox GUI when booting the machine
+    #vb.gui = true
   end
 
   (1..SERVERS).each do |i|
